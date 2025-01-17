@@ -57,6 +57,7 @@ String getChannelName({
   Platform platform = const LocalPlatform(),
   ProcessManager processManager = const LocalProcessManager(),
 }) {
+<<<<<<< HEAD
   final String? envReleaseChannel = platform.environment['LUCI_BRANCH']?.trim();
   if (<String>['master', 'stable', 'main'].contains(envReleaseChannel)) {
     // Backward compatibility: Still support running on "master", but pretend it is "main".
@@ -64,6 +65,14 @@ String getChannelName({
       return 'main';
     }
     return envReleaseChannel!;
+=======
+  switch (platform.environment['LUCI_BRANCH']?.trim()) {
+    // Backward compatibility: Still support running on "master", but pretend it is "main".
+    case 'master' || 'main':
+      return 'main';
+    case 'stable':
+      return 'stable';
+>>>>>>> 68415ad1d920f6fe5ec284f5c2febf7c4dd5b0b3
   }
 
   final RegExp gitBranchRegexp = RegExp(r'^## (?<branch>.*)');
